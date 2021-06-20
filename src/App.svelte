@@ -4,6 +4,7 @@
 	const commonProps = {
 		countriesInfo: []
 	}
+	
 </script>
 
 <div class="container">

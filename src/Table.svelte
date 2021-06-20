@@ -3,7 +3,6 @@
     export let countriesInfo = '';
     import { onMount } from 'svelte';
     import SvelteTable from "svelte-table";
-
     const columns = [
         {
         key: "name",
@@ -64,7 +63,15 @@
         }))
     });
         
-        
+
 </script>
 <h2>Información países</h2>
-<SvelteTable hover columns="{columns}" rows="{countriesInfo}"></SvelteTable>
+<div id="my-table"></div>
+<SvelteTable 
+    columns="{columns}" 
+    rows="{countriesInfo}"
+    classNameTable={['table table-dark']}
+    classNameThead={['thead-light']}
+    classNameSelect={['custom-select']}>
+</SvelteTable>
+
