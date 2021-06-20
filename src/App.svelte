@@ -1,6 +1,6 @@
 <script>
 	export let name;
-	import Table from './Table.svelte'
+  import Chart from './Chart.svelte'
 	const commonProps = {
 		countriesInfo: []
 	}
@@ -13,5 +13,7 @@
       </div>
     </div>
   </div>
+  <div style="width:50%">
+    <Chart {...commonProps}/>
+  </div>
 <h1>Hello {name}!</h1>
-<Table {...commonProps}/>
