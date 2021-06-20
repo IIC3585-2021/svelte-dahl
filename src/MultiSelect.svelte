@@ -15,6 +15,15 @@
   {#if $store.data.length > 0}
   <MultiSelect bind:selected {name} {placeholder} options={$store.countriesNames} {required} />
 {:else}
-    <Circle size="60" color="#FF3E00" unit="px" duration="1s"></Circle>
+<div class="spinner">
+  <Circle size="60" color="#FF3E00" unit="px" duration="1s"></Circle>
+
+</div>
 {/if}
   
+<style> 
+  .spinner{
+    padding: auto;
+    margin:auto;
+  }
+</style>

@@ -71,7 +71,14 @@
         console.log($store.data);
     });
 
-    let selection = { name: "Chile" };
+    let selection = [];
+    $: {
+        if ($store.graphCountries != undefined && $store.graphCountries.length > 0) {
+            selection = $store.data.filter((elem) => $store.graphCountries.includes(elem.name));
+        }
+        else {
+            selection = $store.data;
+        }}
 
 </script>
 <h2>Información países</h2>
@@ -79,11 +86,12 @@
 {#if $store.data.length > 0}
     <SvelteTable 
         columns="{columns}" 
-        rows="{$store.data}"
+        rows="{selection}"
         classNameTable={['table table-dark']}
         classNameThead={['thead-light']}
         classNameSelect={['custom-select']}>
     </SvelteTable>
+    
 {:else}
     <div class="spinner">
         <Circle  size="60" color="#FF3E00" unit="px" duration="1s"></Circle>
