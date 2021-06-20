@@ -1,11 +1,12 @@
 <script>
 	export let name;
-	import Table from './Table.svelte'
+  import Chart from './Chart.svelte'
+  import Table from './Table.svelte'
   import MultiSelect from './MultiSelect.svelte'
   import { store } from './store';
-  
-
-	
+	const commonProps = {
+		countriesInfo: []
+	}
 </script>
 
 <div class="container">
@@ -15,10 +16,11 @@
       </div>
     </div>
   </div>
+  <div style="width:50%">
+    <Chart {...commonProps}/>
+  </div>
+  <div style="width:50%">
+    <MultiSelect/>
+    <Table {...commonProps}/>
+  </div>
 <h1>Hello {name}!</h1>
-
-<MultiSelect/>
-<Table/> 
-
-
-

@@ -21,6 +21,7 @@
   "dependencies": {
     "axios": "^0.21.1",
     "bootstrap": "^5.0.1",
+    "mdbsvelte": "^1.0.12",
     "chart.js": "^3.3.2",
     "sirv-cli": "^1.0.0",
     "svelte-chartjs": "^1.0.1",
