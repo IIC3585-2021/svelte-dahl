@@ -38,28 +38,30 @@
     onMount(async () => {
 		let res = await API.getAll();
         res = res.data.data;
-        countriesInfo = Object.keys(res).map( elem => ({
-            name: res[elem]['Country'],
-            active_cases: res[elem]['Active Cases'],
-            total_cases: res[elem]['Total Cases'],
-            total_recovered: res[elem]['Total Recovered'],
-            total_deaths: res[elem]['Total Deaths'],
-            total_tests: res[elem]['Total Tests'],
-            population: res[elem]['Population'],
-        }))
+        countriesInfo = Object.keys(res)
+            .filter(elem => res[elem]['Country'] != "World")
+            .map( elem => ({
+                name: res[elem]['Country'],
+                active_cases: parseFloat(res[elem]['Active Cases'].replace(/,/g, '')),
+                total_cases: parseFloat(res[elem]['Total Cases'].replace(/,/g, '')),
+                total_recovered: parseFloat(res[elem]['Total Recovered'].replace(/,/g, '')),
+                total_deaths: parseFloat(res[elem]['Total Deaths'].replace(/,/g, '')),
+                total_tests: parseFloat(res[elem]['Total Tests'].replace(/,/g, '')),
+                population: parseFloat(res[elem]['Population'].replace(/,/g, '')),
+            }))
 
         data = {
-        labels: countriesInfo.map(x => x.name).slice(0, 6),
+        labels: countriesInfo.map(x => x.name).slice(0, 5),
         datasets: [
             {
             label: "% of Active Cases",
-            data: countriesInfo.map(x => parseFloat(x.active_cases)).slice(0, 6),
+            data: countriesInfo.map(x => parseFloat(x.active_cases)).slice(0, 5),
             borderWidth: 2
             }
         ]
         };
 
-        console.log(countriesInfo[0]);
+        console.log(countriesInfo.slice(0, 2));
     
     });
   

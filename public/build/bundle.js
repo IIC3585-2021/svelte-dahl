@@ -24028,7 +24028,7 @@ var app = (function () {
 
     const { Object: Object_1, console: console_1 } = globals;
 
-    // (69:4) <MDBCol md="8" class="mx-auto">
+    // (71:4) <MDBCol md="8" class="mx-auto">
     function create_default_slot_1(ctx) {
     	let bar;
     	let current;
@@ -24072,14 +24072,14 @@ var app = (function () {
     		block,
     		id: create_default_slot_1.name,
     		type: "slot",
-    		source: "(69:4) <MDBCol md=\\\"8\\\" class=\\\"mx-auto\\\">",
+    		source: "(71:4) <MDBCol md=\\\"8\\\" class=\\\"mx-auto\\\">",
     		ctx
     	});
 
     	return block;
     }
 
-    // (68:2) <MDBRow>
+    // (70:2) <MDBRow>
     function create_default_slot(ctx) {
     	let mdbcol;
     	let current;
@@ -24129,7 +24129,7 @@ var app = (function () {
     		block,
     		id: create_default_slot.name,
     		type: "slot",
-    		source: "(68:2) <MDBRow>",
+    		source: "(70:2) <MDBRow>",
     		ctx
     	});
 
@@ -24227,28 +24227,28 @@ var app = (function () {
     		let res = await API.getAll();
     		res = res.data.data;
 
-    		$$invalidate(2, countriesInfo = Object.keys(res).map(elem => ({
+    		$$invalidate(2, countriesInfo = Object.keys(res).filter(elem => res[elem]["Country"] != "World").map(elem => ({
     			name: res[elem]["Country"],
-    			active_cases: res[elem]["Active Cases"],
-    			total_cases: res[elem]["Total Cases"],
-    			total_recovered: res[elem]["Total Recovered"],
-    			total_deaths: res[elem]["Total Deaths"],
-    			total_tests: res[elem]["Total Tests"],
-    			population: res[elem]["Population"]
+    			active_cases: parseFloat(res[elem]["Active Cases"].replace(/,/g, "")),
+    			total_cases: parseFloat(res[elem]["Total Cases"].replace(/,/g, "")),
+    			total_recovered: parseFloat(res[elem]["Total Recovered"].replace(/,/g, "")),
+    			total_deaths: parseFloat(res[elem]["Total Deaths"].replace(/,/g, "")),
+    			total_tests: parseFloat(res[elem]["Total Tests"].replace(/,/g, "")),
+    			population: parseFloat(res[elem]["Population"].replace(/,/g, ""))
     		})));
 
     		$$invalidate(0, data = {
-    			labels: countriesInfo.map(x => x.name).slice(0, 6),
+    			labels: countriesInfo.map(x => x.name).slice(0, 5),
     			datasets: [
     				{
     					label: "% of Active Cases",
-    					data: countriesInfo.map(x => parseFloat(x.active_cases)).slice(0, 6),
+    					data: countriesInfo.map(x => parseFloat(x.active_cases)).slice(0, 5),
     					borderWidth: 2
     				}
     			]
     		});
 
-    		console.log(countriesInfo[0]);
+    		console.log(countriesInfo.slice(0, 2));
     	});
 
     	const writable_props = ["countriesInfo"];
