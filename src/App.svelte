@@ -1,8 +1,8 @@
 <script>
 	export let name;
-	import Select from './Select.svelte'
+	import Table from './Table.svelte'
 	const commonProps = {
-		value: 'Nada'
+		countriesInfo: []
 	}
 </script>
 
@@ -14,4 +14,4 @@
     </div>
   </div>
 <h1>Hello {name}!</h1>
-<Select {...commonProps}/>
+<Table {...commonProps}/>
