@@ -1,9 +1,9 @@
 <script>
     import API from "./Api"
-    export let countriesInfo = '';
-    export let countriesNames = [];
     import { onMount } from 'svelte';
     import SvelteTable from "svelte-table";
+    import { store } from './store';
+    const { addData, addNames } = store;
     const columns = [
         {
         key: "name",
@@ -52,10 +52,12 @@
     onMount(async () => {
 		let res = await API.getAll();
         res = res.data.data;
-        countriesNames = Object.keys(res).map(elem => (res[elem]['Country']));
-        countriesNames = countriesNames.filter(x => x != 'World')
-        console.log("C", countriesNames);
-        countriesInfo = Object.keys(res).map( elem => ({
+        let names = Object.keys(res).map(elem => (res[elem]['Country']));
+        names = names.filter(x => x != 'World')
+        // Add countries names to store
+        addNames(names);
+        console.log($store.countriesNames);
+        let countriesInfo = Object.keys(res).map( elem => ({
             name: res[elem]['Country'],
             active_cases: res[elem]['Active Cases'],
             total_cases: res[elem]['Total Cases'],
@@ -64,18 +66,22 @@
             total_tests: res[elem]['Total Tests'],
             population: res[elem]['Population'],
         }))
+        addData(countriesInfo);
+        console.log($store.data);
     });
+
     let selection = { name: "Chile" };
 
 </script>
 <h2>Información países</h2>
-<div id="my-table"></div>
-<SvelteTable 
-    columns="{columns}" 
-    rows="{countriesInfo}"
-    bind:filterSelections="{selection}"
-    classNameTable={['table table-dark']}
-    classNameThead={['thead-light']}
-    classNameSelect={['custom-select']}>
-</SvelteTable>
+
+{#if $store.data.length > 0}
+    <SvelteTable 
+        columns="{columns}" 
+        rows="{$store.data}"
+        classNameTable={['table table-dark']}
+        classNameThead={['thead-light']}
+        classNameSelect={['custom-select']}>
+    </SvelteTable>
+{/if}
 
