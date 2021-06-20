@@ -22,17 +22,10 @@ function createStore() {
         return state; 
       }
     )},
-    addCountry: (newCountry) => {
-      console.log("addCountry");
+    updateGraphCountries: (newCountry) => {
+      console.log("updateGraphCountries");
       update((state) => {
-        state.graphCountries = [newCountry, ...state.graphCountries];
-        return state;
-      });
-    },
-    deleteCountry: (country) => {
-      console.log("deleteCountry");
-      update((state) => {
-        state.graphCountries = state.graphCountries.filter((elem) => elem !== country);
+        state.graphCountries = newCountry;
         return state;
       });
     },

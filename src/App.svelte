@@ -2,6 +2,8 @@
 	export let name;
 	import Table from './Table.svelte'
   import MultiSelect from './MultiSelect.svelte'
+  import { store } from './store';
+  
 
 	
 </script>
@@ -14,6 +16,9 @@
     </div>
   </div>
 <h1>Hello {name}!</h1>
+
 <MultiSelect/>
-<Table/>
+<Table/> 
+
+
 

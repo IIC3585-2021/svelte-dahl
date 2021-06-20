@@ -3,6 +3,7 @@
     import { onMount } from 'svelte';
     import SvelteTable from "svelte-table";
     import { store } from './store';
+    import { Circle } from 'svelte-loading-spinners'
     const { addData, addNames } = store;
     const columns = [
         {
@@ -83,5 +84,10 @@
         classNameThead={['thead-light']}
         classNameSelect={['custom-select']}>
     </SvelteTable>
+{:else}
+    <div class="spinner">
+        <Circle  size="60" color="#FF3E00" unit="px" duration="1s"></Circle>
+
+    </div>
 {/if}
 
