@@ -3,23 +3,29 @@ import { writable } from "svelte/store";
 function createStore() {
   const { subscribe, set, update } = writable({
     graphCountries: [],
+    countriesNames: [],
     data: {},
     selectedChart: "total_cases",
     fetching: null,
   });
   return {
     subscribe,
-    addCountry: (newCountry) => {
-      console.log("addCountry");
+    addData: (data) => {
       update((state) => {
-        state.graphCountries = [newCountry, ...state.graphCountries];
-        return state;
-      });
-    },
-    deleteCountry: (country) => {
-      console.log("deleteCountry");
+        state.data = data;
+        return state; 
+      }
+    )},
+    addNames: (countriesNames) => {
       update((state) => {
-        state.graphCountries = state.graphCountries.filter((elem) => elem !== country);
+        state.countriesNames = countriesNames;
+        return state; 
+      }
+    )},
+    updateGraphCountries: (newCountry) => {
+      console.log("updateGraphCountries");
+      update((state) => {
+        state.graphCountries = newCountry;
         return state;
       });
     },
