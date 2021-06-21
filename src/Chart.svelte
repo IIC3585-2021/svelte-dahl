@@ -2,14 +2,8 @@
 
   import {MDBRow, MDBCol} from "mdbsvelte";
   import Bar from "svelte-chartjs/src/Bar.svelte"
-
-  import API from "./Api"
-  export let countriesInfo = '';
-  import { onMount } from 'svelte';
-
 	import { store } from './store';
 	import { Circle } from 'svelte-loading-spinners'
-	const { addData, addNames } = store;
 
   let data;
   let options = {
@@ -48,11 +42,6 @@
 			}
 		]
 	};
-
-	$: console.log('store.countriesNames', $store.countriesNames.slice(0, 5));
-	$: console.log('store.data.map(x => x.active_cases).slice(0, 5)', $store.data.slice(0, 5))
-  
-  
 </script>
 
 
