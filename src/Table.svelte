@@ -60,7 +60,7 @@
         console.log($store.countriesNames);
         let countriesInfo = Object.keys(res).map( elem => ({
             name: res[elem]['Country'],
-            active_cases: res[elem]['Active Cases'],
+            active_cases: parseFloat(res[elem]['Active Cases'].replace(/,/g, '')),
             total_cases: res[elem]['Total Cases'],
             total_recovered: res[elem]['Total Recovered'],
             total_deaths: res[elem]['Total Deaths'],
@@ -98,4 +98,3 @@
 
     </div>
 {/if}
-

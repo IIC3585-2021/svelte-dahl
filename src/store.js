@@ -4,7 +4,7 @@ function createStore() {
   const { subscribe, set, update } = writable({
     graphCountries: [],
     countriesNames: [],
-    data: {},
+    data: [],
     selectedChart: "total_cases",
     fetching: null,
   });
