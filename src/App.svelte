@@ -3,6 +3,10 @@
   import Chart from './Chart.svelte'
   import Table from './Table.svelte'
   import MultiSelect from './MultiSelect.svelte'
+
+  const commonProps = {
+		countriesInfo: []
+	}
 </script>
 
 <div class="container">
