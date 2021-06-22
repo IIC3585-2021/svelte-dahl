@@ -5,6 +5,7 @@
   import { store } from './store';
   import { Circle } from 'svelte-loading-spinners'
   const { addData, addNames } = store;
+  
   const columns = [
     {
 			key: "name",
@@ -53,7 +54,7 @@
 		let res = await API.getAll();
     res = res.data.data;
     
-    const countriesInfo = Object.keys(res)
+    let countriesInfo = Object.keys(res)
       .filter(elem => res[elem]['Country'] != "World")
       .map( elem => ({
         name: res[elem]['Country'],
@@ -64,6 +65,7 @@
         total_tests: parseFloat(res[elem]['Total Tests'].replace(/,/g, '')),
         population: parseFloat(res[elem]['Population'].replace(/,/g, '')),
       }))
+
     addData(countriesInfo);
 
     const names = countriesInfo.map(country => country.name);
@@ -72,7 +74,7 @@
 
   let selection = [];
   $: {
-    if ($store.graphCountries.length > 0) {
+    if ( $store.graphCountries != undefined && $store.graphCountries.length > 0) {
       selection = $store.data.filter((elem) => $store.graphCountries.includes(elem.name));
     }
     else {
@@ -80,6 +82,8 @@
     }}
 
 </script>
+
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/css/bootstrap.min.css" integrity="sha384-r4NyP46KrjDleawBgD5tp8Y7UzmLA05oM1iAEQ17CSuDqnUK2+k9luXQOfXJCJ4I" crossorigin="anonymous">
 <h2>Información países</h2>
 
 {#if $store.data.length > 0}
@@ -92,7 +96,15 @@
   </SvelteTable>
   
 {:else}
-  <div class="spinner">
-    <Circle  size="60" color="#FF3E00" unit="px" duration="1s"></Circle>
+  <div class="container-spinner">
+    <div style="margin: 0 auto;">
+      <Circle size="60" color="#FF3E00" unit="px" duration="1s"></Circle>
+    </div>
   </div>
 {/if}
+
+<style>
+  .container-spinner {
+    display: flex;
+  }
+</style>

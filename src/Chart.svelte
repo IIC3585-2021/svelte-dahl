@@ -4,6 +4,7 @@
   import Bar from "svelte-chartjs/src/Bar.svelte"
 	import { store } from './store';
 	import { Circle } from 'svelte-loading-spinners'
+  import _ from "lodash";
 
   let data;
   let options = {
@@ -30,18 +31,42 @@
       }
       ]
     }
-  }; 
+  };
+
+  let selection;
+
+  $: {
+    if ( $store.graphCountries != undefined && $store.graphCountries.length > 0) {
+
+      selection = _.orderBy($store.data, [$store.selectedChart], ["desc"]).filter(country => country[$store.selectedChart] > 0).slice(0, 10);
+
+      let filteredData = $store.data.filter((x) =>
+        $store.graphCountries.includes(x.name)
+      );
+
+      selection.push.apply(selection, filteredData);
+      
+      selection = _.uniqBy(selection, "name");
+      selection = _.orderBy(selection, [$store.selectedChart], ["desc"]);
+
+    }
+    else {
+      selection = _.orderBy($store.data, [$store.selectedChart], ["desc"]).filter(country => country[$store.selectedChart] > 0).slice(0, 10);
+      console.log('selection', selection);
+    }
+  }
 
   $: data = {
-		labels: $store.countriesNames.slice(0, 5),
+		labels: selection.map(x => x.name),
 		datasets: [
 			{
-				label: "% of Active Cases",
-				data: $store.data.map(x => x.active_cases).slice(0, 5),
+				label: `N° ${$store.selectedChart}`,
+				data: selection.map(x => x[$store.selectedChart]),
 				borderWidth: 2
 			}
 		]
 	};
+
 </script>
 
 
@@ -52,5 +77,15 @@
     </MDBCol>
   </MDBRow>
 {:else}
-  <Circle size="60" color="#FF3E00" unit="px" duration="1s"></Circle>
+  <div class="container-spinner">
+    <div style="margin: 0 auto;">
+      <Circle size="60" color="#FF3E00" unit="px" duration="1s"></Circle>
+    </div>
+  </div>
 {/if}
+
+<style>
+  .container-spinner {
+    display: flex;
+  }
+</style>

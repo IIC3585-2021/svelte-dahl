@@ -5,8 +5,16 @@ function createStore() {
     graphCountries: [],
     countriesNames: [],
     data: [],
-    selectedChart: "total_cases",
+    selectedChart: "active_cases",
     fetching: null,
+    items: [
+      {value: 'active_cases', label: 'Casos Activos'},
+      {value: 'total_cases', label: 'Casos Totales'},
+      {value: 'population', label: 'Población'},
+      {value: 'total_recovered', label: 'Total de Recuperados'},
+      {value: 'total_deaths', label: 'Total de Fallecidos'},
+      {value: 'total_tests', label: 'Total de Testeados'}
+    ],
   });
   return {
     subscribe,
