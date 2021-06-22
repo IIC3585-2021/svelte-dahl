@@ -5,7 +5,8 @@
   import { Circle } from 'svelte-loading-spinners'
   const { updateGraphCountries, changeChart } = store;
   const name = `Countries`
-  const placeholder = `Elige un país...`
+  const placeholder1 = `Elige un gráfico...`
+  const placeholder2 = `Elige un país...`
   const required = true
 
   let selected
@@ -21,8 +22,8 @@
 </script>
   
 {#if $store.data.length > 0}
-  <Select items={$store.items} on:select={handleSelect}></Select>
-  <MultiSelect bind:selected {name} {placeholder} options={$store.countriesNames} {required} />
+  <Select items={$store.items} placeholder={placeholder1} on:select={handleSelect}></Select>
+  <MultiSelect bind:selected {name} placeholder={placeholder2} options={$store.countriesNames} {required} />
 {:else}
   <div class="container-spinner">
     <div style="margin: 0 auto;">
